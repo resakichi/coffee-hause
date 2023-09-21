@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+    <style type="text/css">
+                    body {
+              background: #F0E5E1 ;
+            }
+
+            .container {
+              max-width: 900px;
+              margin: 0 auto;
+            }
+
+
+            /**
+              Component
+            **/
+
+            label {
+                width: 100%;
+            }
+
+            .card-input-element {
+                display: none;
+            }
+
+            .card-input {
+                margin: 10px;
+                padding: 0px;
+            }
+
+            .card-input:hover {
+                cursor: pointer;
+            }
+            .card-input-element:checked + .card-input {
+                 box-shadow: 0 0 1px 1px #2ecc71;
+            }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div clas="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <div class="text-center"><h2>Создание заказа</h2></div>
+                    <form th:action="@{/order/save}" th:object="${queryOrder}" method="post">
+                        <div class="border border-secondary rounded p-3">
+                            <div class="form-group row">
+                                <label class="col-sm-6 col-form-label">Ваше имя:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" th:field="*{client_name}" class="form-control" required minlength="2" maxlength="45" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 col-sm-3">
+                                    <label>
+                                        <input type="radio" th:field="*{product_id}" th:value="${productList[0].product_id}" name="product" selected checked class="card-input-element" />
+                                        <div class="card card-default card-input">
+                                            <div class="card-header">[[${productList[0].name}]]</div>
+                                            <div class="card-body">
+                                                <p>Цена: [[${productList[0].price}]]</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Время готовки: [[${productList[0].cook_time}]]</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-3">
+                                    <label>
+                                        <input type="radio" th:field="*{product_id}" th:value="${productList[1].product_id}" name="product" selected checked class="card-input-element" />
+                                        <div class="card card-default card-input">
+                                            <div class="card-header">[[${productList[1].name}]]</div>
+                                            <div class="card-body">
+                                                <p>Цена: [[${productList[1].price}]]</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Время готовки: [[${productList[1].cook_time}]]</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-3">
+                                    <label>
+                                        <input type="radio" th:field="*{product_id}" th:value="${productList[2].product_id}" name="product" selected checked class="card-input-element" />
+                                        <div class="card card-default card-input">
+                                            <div class="card-header">[[${productList[2].name}]]</div>
+                                            <div class="card-body">
+                                                <p>Цена: [[${productList[2].price}]]</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Время готовки: [[${productList[2].cook_time}]]</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-3">
+                                    <label>
+                                        <input type="radio" th:field="*{product_id}" th:value="${productList[3].product_id}" name="product" selected checked class="card-input-element" />
+                                        <div class="card card-default card-input">
+                                            <div class="card-header">[[${productList[3].name}]]</div>
+                                            <div class="card-body">
+                                                <p>Цена: [[${productList[3].price}]]</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Время готовки: [[${productList[3].cook_time}]]</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary m-2">Создать</button>
+                                <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Отмена</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function cancelForm() {
+      window.location = "[[@{/}]]";
+    }
+</script>
+</body>
+</html>

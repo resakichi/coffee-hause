@@ -1,0 +1,29 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+    <style type="text/css">
+        body {
+            background: #F0E5E1 ;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center">
+<form th:action="@{/employ/create}" method="post">
+<tr>
+    <input type="text" th:field="*{employee.name}" class="form-control" required minlength="2" maxlength="45" />
+    <div class="row">
+        <input type="radio" th:field="*{employee.role.role_id}" th:value="*{roleList[0].role_id}" th:text="*{roleList[0].name}"/>
+        <input type="radio" th:field="*{employee.role.role_id}" th:value="*{roleList[1].role_id}" th:text="*{roleList[1].name}"/>
+        <input type="radio" th:field="*{employee.role.role_id}" th:value="*{roleList[2].role_id}" th:text="*{roleList[2].name}"/>
+        <input type="radio" th:field="*{employee.role.role_id}" th:value="*{roleList[3].role_id}" th:text="*{roleList[3].name}"/>
+    </div>
+</tr>
+<button type="submit" class="btn btn-primary m-2">Создать</button>
+</form>
+
+</div>
+</body>
+</html>

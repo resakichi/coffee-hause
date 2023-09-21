@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+    <style type="text/css">
+        body {
+        background: #F0E5E1 ;
+        }
+
+         .container {
+           max-width: 900px;
+           margin: 0 auto;
+         }
+
+        .card-body{
+            padding:0.6 rem;
+            padding-bottom:0;
+        }
+
+         label {
+             width: 100%;
+         }
+
+         .card-input-element {
+             display: none;
+         }
+
+         .card-input {
+             margin: 5px;
+             padding: 0px;
+         }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">На главную<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/order/create}">Сделать заказ<span class="sr-only"></span></a>
+                </li>
+            </ul>
+            <form th:action="@{/}" method="post" class="form-inline ml-md-auto">
+                <input name="path" th:value="*{path}" class="form-control mr-sm-2" placeholder="Введите номер заказа" type="text" />
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Найти</button>
+            </form>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card card-default card-input">
+                <div class="card-header text-center">Заказ № [[${order.order_id}]]</div>
+                <div class="card-body">
+                    <p>Время создания заказа:</p>
+                    <p>[[${order.create_time}]]</p>
+                </div>
+                <div class="card-body">
+                    <p>Статус:</p>
+                    <p>[[${order.stage.name}]]</p>
+                </div>
+                <div class="card-body">
+                    <p>Клиент:</p>
+                    <p>[[${order.client_id.name}]]</p>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center" id="myForm">
+                        <form th:action="@{/event}" method="post" th:object="${event}" class="form-inline ml-md-auto">
+                            <th:block th:each="stage : ${stageList}">
+                                <div class="form-check col" >
+                                    <input class="form-check-input" type="radio" name="stage_id" id="stage_id" th:filed="*{stage_id}" th:value="${stage.stage_id}">
+                                    <label class="form-check-label" th:text="${stage.name}"></label>
+                                </div>
+                            </th:block>
+                            <input type="hidden" name="order_id" th:value="${order.order_id}" id="order_id">
+                            <input type="hidden" name="delivery_time" th:value="${events[0].delivery_time}" id="order_id">
+                            <input type="hidden" name="product_id" th:value="${events[0].product_id.product_id}" id="order_id">
+                            <div class="card-body">
+                                <input class="form-check-input" th:value="*{reason}" type="text" id="reason" name="reason" placeholder="Укажите причину отказа">
+                                <button class="btn btn-primary" type="submit">Изменить статус</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Время записи</th>
+                <th>Статус</th>
+                <th>Клиент</th>
+                <th>Причина отказа</th>
+                <th>Продукт</th>
+                <th>Время доставки</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="event : ${events}">
+                <tr>
+                    <td>[[${event.time}]]</td>
+                    <td>[[${event.stage.name}]]</td>
+                    <td>[[${event.client_id.name}]]</td>
+                    <td>[[${event.reason}]]</td>
+                    <td>[[${event.product_id.name}]]</td>
+                    <td>[[${event.delivery_time}]]</td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

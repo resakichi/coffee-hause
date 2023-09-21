@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Кофейня</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+</head>
+<body>
+<div class="container-fluid">
+    <div clas="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <div class="container-fluid justify-content-center text-center">
+                        <h1>Coffee house</h1>
+                        <form th:action="@{/order/create}">
+                            <button type="submit" class="btn btn-primary m-2">Сделать заказ</button>
+                            <button type="button" class="btn btn-primary m-2" onclick="cancelForm()">Список заказов</button>
+                        </form>
+                        <form th:action="@{/}" method="post">
+                            <input name="path" th:value="*{path}" placeholder="введите номер заказа" type="text" class="form-control" required minlength="2" maxlength="45" />
+                            <button type="submit" class="btn btn-primary m-2">Найти заказ</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function cancelForm() {
+      window.location = "[[@{/events}]]";
+    }
+</script>
+</html>
